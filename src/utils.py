@@ -1,6 +1,4 @@
 import psycopg2
-from connect_api import HH
-from config import config
 
 
 def create_database(database_name: str, params: dict):
@@ -42,7 +40,7 @@ def create_database(database_name: str, params: dict):
 
 
 def save_data_to_db(company_data, vacancy_data, database_name, params):
-
+    """Сохранение данных в таблицу"""
     conn = psycopg2.connect(dbname=database_name, **params)
     with conn.cursor() as cur:
         for company in company_data:

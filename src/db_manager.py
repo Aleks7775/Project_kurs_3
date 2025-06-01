@@ -1,13 +1,15 @@
 import psycopg2
 from config import config
+
+
 params = config()
+
 
 class DBManager:
 
     def __init__(self, db_params):
 
         self.conn = psycopg2.connect(dbname='manager', **db_params)
-
 
     def get_companies_and_vacancies_count(self):
         """Получает список всех компаний и количество вакансий у каждой компании"""
@@ -25,7 +27,6 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-
     def get_all_vacancies(self):
         """Получает список всех вакансий с указанием названия компании,
          названия вакансии и зарплаты и ссылки на вакансию"""
@@ -41,7 +42,6 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-
     def get_avg_salary(self):
         """Получает среднюю зарплату по вакансиям"""
         with self.conn.cursor() as cursor:
@@ -52,7 +52,6 @@ class DBManager:
             )
             result = cursor.fetchall()
             return result
-
 
     def get_vacancies_with_higher_salary(self):
         """Получает список всех вакансий, у которых зарплата выше средней
@@ -68,7 +67,6 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-
     def get_vacancies_with_keyword(self, keyword):
         """Получает список всех вакансий, в названии которых содержатся
         переданные в метод слова, например python"""
@@ -83,7 +81,6 @@ class DBManager:
             )
             result = cursor.fetchall()
             return result
-
 
     def close_connection(self):
         """Закрывает таблицу"""

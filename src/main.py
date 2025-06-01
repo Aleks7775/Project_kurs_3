@@ -1,5 +1,4 @@
 from psycopg2 import connect
-
 from config import config
 from utils import create_database, save_data_to_db
 from connect_api import HH
@@ -21,7 +20,7 @@ save_data_to_db(company_data, vacancy_data, 'manager', params)  #Сохране�
 
 
 def main():
-
+    """Меню действий с пользователем"""
     db_manager = DBManager(params)
 
     while True:
@@ -63,5 +62,6 @@ def main():
             break
         else:
             print("Неверны ввод. Попробуйте снова.")
+
 
 main()
