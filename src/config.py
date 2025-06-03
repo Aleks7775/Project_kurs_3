@@ -1,7 +1,7 @@
 from configparser import ConfigParser
+from typing import Optional, Dict, List
 
-
-def config(filename="database.ini", section="postgresql"):
+def config(filename="database.ini", section="postgresql") -> dict:
     """Словарь с данными для подключения к БД,
     (database.ini, хранится сама конфигурация)"""
     parser = ConfigParser()

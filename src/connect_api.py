@@ -1,22 +1,23 @@
 import requests
+from typing import Optional, Dict, List
 
 
 class HH:
-    def __init__(self):
+    def __init__(self) -> None:
         self.base_url = 'https://api.hh.ru/'
         self.headers = {'User-Agent': 'HH-User-Agent'}
 
-    def connect_to_appi(self, employer_id):
+    def connect_to_appi(self, employer_id) -> Optional[Dict]:
         """Получение данных о работодателя по его id"""
         try:
             url = f'{self.base_url}employers/{employer_id}'
             response = requests.get(url, headers=self.headers)
             response.raise_for_status()
-            return response
+            return response.json()
         except requests.exceptions.RequestException as e:
             raise Exception(f"Ошибка подключения: {e}")
 
-    def get_vacancies(self, employer_ids, per_page=10):
+    def get_vacancies(self, employer_ids, per_page=10) -> List[Dict]:
         """Получение всех вакансий для множества employer_ids"""
         all_vacancies = []  # Список для хранения всех вакансий
 

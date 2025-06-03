@@ -19,7 +19,7 @@ create_database('manager', params)   #Создание базы данных с 
 save_data_to_db(company_data, vacancy_data, 'manager', params)  #Сохранение данных о работодателе в базу данных
 
 
-def main():
+def main() -> None:
     """Меню действий с пользователем"""
     db_manager = DBManager(params)
 

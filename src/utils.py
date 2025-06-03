@@ -1,7 +1,8 @@
 import psycopg2
+from typing import List, Dict, Any
 
 
-def create_database(database_name: str, params: dict):
+def create_database(database_name: str, params: dict) -> None:
     """Создание базы данных и таблиц для сохранения данных о вакансиях и работодателях"""
 
     conn = psycopg2.connect(dbname='postgres', **params)
@@ -39,7 +40,7 @@ def create_database(database_name: str, params: dict):
     conn.close()
 
 
-def save_data_to_db(company_data, vacancy_data, database_name, params):
+def save_data_to_db(company_data: List[Dict], vacancy_data: List[Dict], database_name: str, params: dict) -> None:
     """Сохранение данных в таблицу"""
     conn = psycopg2.connect(dbname=database_name, **params)
     with conn.cursor() as cur:

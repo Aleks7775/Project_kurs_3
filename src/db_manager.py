@@ -1,5 +1,6 @@
 import psycopg2
 from config import config
+from typing import Optional, Dict, List
 
 
 params = config()
@@ -11,7 +12,7 @@ class DBManager:
 
         self.conn = psycopg2.connect(dbname='manager', **db_params)
 
-    def get_companies_and_vacancies_count(self):
+    def get_companies_and_vacancies_count(self) -> List[tuple]:
         """Получает список всех компаний и количество вакансий у каждой компании"""
         with self.conn.cursor() as cursor:
             cursor.execute(
@@ -27,7 +28,7 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-    def get_all_vacancies(self):
+    def get_all_vacancies(self) -> List[tuple]:
         """Получает список всех вакансий с указанием названия компании,
          названия вакансии и зарплаты и ссылки на вакансию"""
         with self.conn.cursor() as cursor:
@@ -42,7 +43,7 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-    def get_avg_salary(self):
+    def get_avg_salary(self) -> Optional[round]:
         """Получает среднюю зарплату по вакансиям"""
         with self.conn.cursor() as cursor:
             cursor.execute(
@@ -53,7 +54,7 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-    def get_vacancies_with_higher_salary(self):
+    def get_vacancies_with_higher_salary(self) -> List[tuple]:
         """Получает список всех вакансий, у которых зарплата выше средней
          по всем вакансиям"""
         with self.conn.cursor() as cursor:
@@ -67,7 +68,7 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-    def get_vacancies_with_keyword(self, keyword):
+    def get_vacancies_with_keyword(self, keyword: str) -> List[tuple]:
         """Получает список всех вакансий, в названии которых содержатся
         переданные в метод слова, например python"""
         with self.conn.cursor() as cursor:
@@ -82,6 +83,6 @@ class DBManager:
             result = cursor.fetchall()
             return result
 
-    def close_connection(self):
+    def close_connection(self) -> None:
         """Закрывает таблицу"""
         self.conn.close()
